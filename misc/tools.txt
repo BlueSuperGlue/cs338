@@ -1,0 +1,12 @@
+Seth Romanenko
+A network tools scavenger hunt
+
+What's your computer's IP address for its current Internet connection? (0-point bonus: how can you tell the difference between your Ethernet IP and your wireless IP if you have both connections active?)
+How can you determine the IP address associated with a given host name?
+How can you determine the host name(s) associated with a given IP address?
+How can you copy a file from one computer to another? Or more to the point, if you create a file on the Kali virtual machine and you want to put it someplace where you can save it, like your your account on mantis.mathcs.carleton.edu, how do you go about it from the Kali command-line interface?
+How can you tell whether there's a process listening on a given port (e.g. port 80 or port 22) on a given host?
+How can you tell which ports have processes listening on them on a given host?
+How can you retrieve and save a given web page (say https://google.com/ or https://carleton.edu/) in a file on your system?
+How can you view the HTTP headers sent back from a specified web server when you request one of its pages?
+How can you view the HTTP headers that your computer sends to the web server when you do the tasks in the previous two questions?
