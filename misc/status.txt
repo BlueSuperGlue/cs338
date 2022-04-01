@@ -1,3 +1,3 @@
 Seth Romanenko
 
-I have successfully installed both Kali and VMware on my laptop
+I have successfully installed both Kali and VMware on my laptop. Assuming I don't run into any issues, I will be using my personal laptop for assignments.
