@@ -1,2 +1,3 @@
 Seth Romanenko
 
+I have successfully installed both Kali and VMware on my laptop
