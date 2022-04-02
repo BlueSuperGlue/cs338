@@ -1,26 +1,41 @@
 Seth Romanenko
-A network tools scavenger hunt
+A Network Tools Scavenger Hunt
 
 What's your computer's IP address for its current Internet connection? (0-point bonus: how can you tell the difference between your Ethernet IP and your wireless IP if you have both connections active?)
   My IP address is 137.22.90.22
 
 How can you determine the IP address associated with a given host name?
+	$ ping “hostname”
+  (https://www.dotcom-monitor.com/wiki/knowledge-base/target-hostname-or-ip-address/#:~:text=In%20an%20open%20command%20line,the%20keyboard%20shortcut%20Win%20%2B%20R)
 
 How can you determine the host name(s) associated with a given IP address?
+	$ nslookup “ip address goes here”
+  (https://linuxhint.com/find-hostname-ip-linux/#:~:text=A%20far%20simpler%20and%20more,hostnames%20and%20IP%20address%20mappings.&text=110.223.58.216.in%2Daddr,%2Df14.1e100.net.)
 
 How can you copy a file from one computer to another? Or more to the point, if you create a file on the Kali virtual machine and you want to put it someplace where you can save it, like your your account on mantis.mathcs.carleton.edu, how do you go about it from the Kali command-line interface?
-  copy local_file.txt \\target_machine\c$\dest_file.txt
-    (https://superuser.com/questions/197290/how-can-i-copy-a-file-from-my-machine-to-another-machine-from-command-line)
+  $ copy local_file.txt \\target_machine\c$\dest_file.txt
+  (https://superuser.com/questions/197290/how-can-i-copy-a-file-from-my-machine-to-another-machine-from-command-line)
 
 How can you tell whether there's a process listening on a given port (e.g. port 80 or port 22) on a given host?
   Assuming that netstat is (by default) installed:
   $ netstat -ltnp | grep -w ':80' (where 80 is the given port)
-  
-
+  (https://www.tecmint.com/find-out-which-process-listening-on-a-particular-port/)
+ 
 How can you tell which ports have processes listening on them on a given host?
+“To show TCP ports, UDP ports, numerical addresses instead of resolving hosts, only listening ports, and the PID and name of the listener’s process”:
+	$ sudo netstat -tunlp
+	(https://linuxize.com/post/check-listening-ports-linux/)
 
 How can you retrieve and save a given web page (say https://google.com/ or https://carleton.edu/) in a file on your system?
+	wget "http://www.url" -O output.txt
+  (https://unix.stackexchange.com/questions/12352/how-to-make-wget-save-the-web-page-contents-to-a-file)
 
 How can you view the HTTP headers sent back from a specified web server when you request one of its pages?
+  It seems like, in order to do this, you either need to use some sort of third party tool such as the Internationalization Checker tool, Delorie HTTP Header Viewer, or Rex Swain's HTTP Viewer or execute the following command:
+  $ curl -I https://example.com
+  (https://www.w3.org/International/questions/qa-headers-charset.en)
+  (https://help.dreamhost.com/hc/en-us/articles/360031248971-Viewing-your-website-s-headers)
 
 How can you view the HTTP headers that your computer sends to the web server when you do the tasks in the previous two questions?
+
+
