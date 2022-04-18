@@ -1,0 +1,122 @@
+GETTING STARTED WITH WIRESHARK
+===== DAYTIME =====
+Identify the parts of the TCP 3-way handshake by listing the frame summaries of the relevant frames.
+We can see that port 80 is interacting with 60082 and 60080
+2	0.000118265	192.168.252.128	45.79.89.123	TCP	74	60082 → 80 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM=1 TSval=178876244 TSecr=0 WS=128
+3	0.048028414	45.79.89.123	192.168.252.128	TCP	60	80 → 60080 [SYN, ACK] Seq=0 Ack=1 Win=64240 Len=0 MSS=1460
+4	0.048113190	192.168.252.128	45.79.89.123	TCP	54	60080 → 80 [ACK] Seq=1 Ack=1 Win=64240 Len=0
+What port number does the client (i.e. nc on your Kali computer) use for this interaction? And why does the client need a port?
+Port 80. The client needs a port in order to be able to execute the three way TCP handshake
+What frame contains the actual date and time? (Show the frame summary as in question 1 above.)
+It seems like all of the frames have time data, and I was not able to identify any one packet that has more specific/ detailed information.
+What is the full content (not counting the Ethernet, IP, and TCP headers) of the frame? What do each of the pieces of the frame content represent? (Most of the frame content is things like the year, month, day, hour, etc., but there's a little more info, too.)
+ 
+What does [SYN] mean?
+SYN stands for synchronize. It is a type of TCP packet sent to another device (as part of the three way TCP handshake) in order to establish a connection. If the SYN is received by the second machine, an SYN/ACK is sent back to the address requested by the SYN. Lastly, if the original computer receives the SYN/ACK, a final ACK is sent.
+What does [ACK] mean?
+ACK is sent from to and from both devices in order to acknowledge that the data has been received
+What does [FIN] mean?
+FIN indicates that the connection between devices is terminated
+Which entity (the nc client or the daytime server) initiated the closing of the TCP connection? How can you tell?
+===== HTTP =====
+How many TCP connections were opened?
+There are a total of 182 active TCP connections:
+┌──(kali㉿kali)-[~]
+└─$ netstat -s -t | sed -e '/Tcp:/!d;:l;n;/^\ /!d;bl'
+Tcp:
+    182 active connection openings
+    0 passive connection openings
+    70 failed connection attempts
+    8 connection resets received
+    1 connections established
+    6724 segments received
+    5466 segments sent out
+    16 segments retransmitted
+    0 bad segments received
+    81 resets sent
+Can you tell where my homepage (index.html) was requested? (If not, why not? If so, include frame summaries and/or other info that supports your answer.)
+It seems like index.html is requested here by using GET:
+5	2022-04-17 21:18:42.663512583	192.168.252.128	45.79.89.123	HTTP	395	GET /index.html HTTP/1.1
+This packet contains the following contents:
+Frame 5: 395 bytes on wire (3160 bits), 395 bytes captured (3160 bits) on interface eth0, id 0
+    Interface id: 0 (eth0)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Apr 17, 2022 21:18:42.663512583 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1650244722.663512583 seconds
+    [Time delta from previous captured frame: 0.000403255 seconds]
+    [Time delta from previous displayed frame: 0.000403255 seconds]
+    [Time since reference or first frame: 0.048516445 seconds]
+    Frame Number: 5
+    Frame Length: 395 bytes (3160 bits)
+    Capture Length: 395 bytes (3160 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:tcp:http]
+    [Coloring Rule Name: HTTP]
+    [Coloring Rule String: http || tcp.port == 80 || http2]
+Ethernet II, Src: VMware_28:5c:c0 (00:0c:29:28:5c:c0), Dst: VMware_ff:81:f1 (00:50:56:ff:81:f1)
+Internet Protocol Version 4, Src: 192.168.252.128, Dst: 45.79.89.123
+Transmission Control Protocol, Src Port: 60080, Dst Port: 80, Seq: 1, Ack: 1, Len: 341
+Hypertext Transfer Protocol
+    GET /index.html HTTP/1.1\r\n
+        [Expert Info (Chat/Sequence): GET /index.html HTTP/1.1\r\n]
+        Request Method: GET
+        Request URI: /index.html
+        Request Version: HTTP/1.1
+    Host: cs231.jeffondich.com\r\n
+    User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0\r\n
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n
+    Accept-Language: en-US,en;q=0.5\r\n
+    Accept-Encoding: gzip, deflate\r\n
+    Connection: keep-alive\r\n
+    Upgrade-Insecure-Requests: 1\r\n
+    \r\n
+    [Full request URI: http://cs231.jeffondich.com/index.html]
+    [HTTP request 1/2]
+    [Response in frame: 9]
+    [Next request in frame: 21]
+Can you tell where my photograph (jeff_square_head.jpg) was requested? (If not, why not? If so, include frame summaries and/or other info that supports your answer.)
+Here, also with GET:
+11	2022-04-17 21:18:42.765676604	192.168.252.128	45.79.89.123	HTTP	364	GET /jeff_square_head.jpg HTTP/1.1
+This packet contains the following contents:
+Frame 11: 364 bytes on wire (2912 bits), 364 bytes captured (2912 bits) on interface eth0, id 0
+    Interface id: 0 (eth0)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Apr 17, 2022 21:18:42.765676604 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1650244722.765676604 seconds
+    [Time delta from previous captured frame: 0.052519195 seconds]
+    [Time delta from previous displayed frame: 0.052519195 seconds]
+    [Time since reference or first frame: 0.150680466 seconds]
+    Frame Number: 11
+    Frame Length: 364 bytes (2912 bits)
+    Capture Length: 364 bytes (2912 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:tcp:http]
+    [Coloring Rule Name: HTTP]
+    [Coloring Rule String: http || tcp.port == 80 || http2]
+Ethernet II, Src: VMware_28:5c:c0 (00:0c:29:28:5c:c0), Dst: VMware_ff:81:f1 (00:50:56:ff:81:f1)
+Internet Protocol Version 4, Src: 192.168.252.128, Dst: 45.79.89.123
+Transmission Control Protocol, Src Port: 60082, Dst Port: 80, Seq: 1, Ack: 1, Len: 310
+Hypertext Transfer Protocol
+    GET /jeff_square_head.jpg HTTP/1.1\r\n
+        [Expert Info (Chat/Sequence): GET /jeff_square_head.jpg HTTP/1.1\r\n]
+        Request Method: GET
+        Request URI: /jeff_square_head.jpg
+        Request Version: HTTP/1.1
+    Host: cs231.jeffondich.com\r\n
+    User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0\r\n
+    Accept: image/webp,*/*\r\n
+    Accept-Language: en-US,en;q=0.5\r\n
+    Accept-Encoding: gzip, deflate\r\n
+    Connection: keep-alive\r\n
+    Referer: http://cs231.jeffondich.com/index.html\r\n
+    \r\n
+    [Full request URI: http://cs231.jeffondich.com/jeff_square_head.jpg]
+    [HTTP request 1/1]
+    [Response in frame: 39]
+===== QUESTIONS =====
+Put one more heading in wireshark.txt (like "===== QUESTIONS ====="), and write down a few questions that you would like answered about how to interpret Wireshark output.
+I don’t think I have any one specific question, I just felt like I had to do a lot of googling and referencing wireshark documentation.
