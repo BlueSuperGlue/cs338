@@ -1,0 +1,223 @@
+PRIVATE KEY:
+
+3. As documented in the Appendix of RFC 8017, we expect to see the following information (in the order that it appears) within the private key:
+An RSA private key should be represented with the ASN.1 tpe RSAPrivateKey:
+         RSAPrivateKey ::= SEQUENCE {
+             version           Version,
+             modulus           INTEGER,  -- n
+             publicExponent    INTEGER,  -- e
+             privateExponent   INTEGER,  -- d
+             prime1            INTEGER,  -- p
+             prime2            INTEGER,  -- q
+             exponent1         INTEGER,  -- d mod (p-1)
+             exponent2         INTEGER,  -- d mod (q-1)
+             coefficient       INTEGER,  -- (inverse of q) mod p
+             otherPrimeInfos   OtherPrimeInfos OPTIONAL
+         }
+The fields of type RSAPrivateKey have the following meanings:
+version - version number, for compatibility with future revisions of this document.  It SHALL be 0 for this version of the document, unless multi-prime is used; in which case, it SHALL be 1.
+            Version ::= INTEGER { two-prime(0), multi(1) }
+               (CONSTRAINED BY
+               {-- version must be multi if otherPrimeInfos present --})
+modulus - RSA modulus n.
+publicExponent - RSA public exponent e.
+privateExponent - RSA private exponent d.
+prime1 - prime factor p of n.
+prime2 - prime factor q of n.
+exponent1 - d mod (p - 1).
+exponent2 - d mod (q - 1).
+coefficient - CRT coefficient q^(-1) mod p.”
+
+4. In order to decode my private key, I navigated to https://lapo.it/asn1js/, pasted my key into the input box, and clicked ‘decode’.
+
+5. SEQUENCE (9 elem); Header: 0x308206E4, Value (all of the following):
+
+Version: INTEGER 0, Offset: 4, Header: 0x0201, Value: 0x00
+
+Modulus (n): INTEGER (3072 bit), Offset: 7, Header: 0x0201, Value:
+0xbd395e1c9e09553067bcfa51b34db8795c524e24162c72f040013c336934f5e5
+304aafee8a20614c3eac9f5d09e4009169ee146b91129524a44492ad591d737c
+9545ddf7478995ddd458ec2fb5d557e284501388c1779a2ddb073da14de9b7ff
+ae0ed371205963aba79254beb5128e61a43da7a07d1d9a40052dde206477ab96
+c6472d9c8b3f4e640cced9f3d6ee25edd59c57a5fdc84f0650c011cf065d2946
+71bd9b2af3dc6715af4d5a33ef8ab97f1ff774766e388167eaa470c51bd97fbc
+981f0432c3feee6464436fb20d1b329b05cdfa32be84699d422e169a4b0ce1bb
+1c1c47da21477103969cfabe79cc7b9459a228cf8e9fbcd7e9e96266bda0ac74
+bf4e7f22b8bd2e41ca101eab1b164b6c2da82d84da9934927dbac9c0e19d6f8c
+7fdf83d431279934589e3733b9d6adc35293eaf11bfad9d02c43e7a06bd8c253
+3b680e9d8092aef60b328fa3d055785e57de7a1c32b15bf60b6ebacd1b458e92
+4ae07537cca483fcae0e11864dd8003eb1101da2b1e63aabe8ac6dd0619875fb
+
+Public Exponent (e): INTEGER 65537, Offset: 396, Header: 0x0203, Value: 0x010001 (65537 as decimal)
+
+Private Exponent (d): INTEGER (3072 bit), Offset: 401, Header: 0x0203, Value:
+0xa016a6eea32dd62aebb950364af2583e24c36564d675a8906636254e8195d2eb
+a21dae16ac3994d7c2b69ce543f6e81c1e78d441e52cc98d8484976b9d57735b
+559714a19e9e627298b2daafcab0c277dbe53b8199dcac4e5b5e16e01f60bad0
+cfdbaf3ba858b82083d723676d1e53e37be6c5a8dbf16d8cf854c3f6b7c91f1c
+a28799a9358dcbae8dbf7b59f6dee8abfceb16a452bf634c3e892107fba459c5
+45795a8bce610bbda6e0548e57fd0fcee3a6a19b88c8b982c75b7424eed8e65d
+9dd49252f6cbab536d17d956a5232cd9489aa909f3e7f39653de8d35fe047a33
+8ad200d3ec2f876fc0c7e23dad5183318c6426cf4d85b691acfafac69288942f
+d3446de43f099bdc9a773ae582aa5fe191c73441bbecde67141297fc40890ee1
+dc18c15c76c63567d3388b49168bb03e58d234af4c9f00fe068c366015477476
+9cbe7f06e852b362bad37473b195e26c4a26f902d4930a9ab48373f6c5c7a96b
+d37e1b8db8ce0638772546d32974be1f6d2dfd8c0518a6413e09721ced324191
+
+02  82 01 81
+02 = 0000 00010 — integer — from type table in wikipedia — integer (x.690)
+30 — sequence
+82 01 81 — length
+
+First Prime (p): INTEGER (1536 bit), Offset: 790, Header: 0x02820181, Value:
+0xe436f8b3f8acd2c7a5b5ee51eb999b20d9ab34bc34000526e3cd56ba5d5c0bd6
+cba7038b6d3a925df28692a49fca68c238b9a8bb2b1f7903783e5ada41823fd9
+d9cf5fdecbb746628a444885a313e7da555a76fd28ef0fc9ba24005e701a6a9a
+c3dd3e33030ad3e9a74644c50217b97f7a144c4024fe636c05abe96c6cf83d86
+2281e1763421cd22e753c216e7a735af4469ce121419c717fe2def420f5eb4a0
+5195c98d96035c5edcfbd0a3c3875c3610893a84f6e47c6f7ad35d1796357aef
+
+Second Prime (q): INTEGER (1536 bit), Offset: 986, Header: 0x0281C1, Value:
+0xd443216449704b3f1b86b043b968e8a2745db706f355ca2aab4b7a673b4fb586
+9e89110c762f00480606f8b8500b239f471574c52f716f34ad010c1a720eb6a9
+5c197e8a7178529bfc57527b48c93ec0cfcb97f5e28e9658c74fd9648be0ef15
+295b88492657e322f6db626881007eb4420fbb331655bd9769777e5849a3aa9f
+c9e535355fe179e7d53fd93c52609e846e04e097a2bbf7d4e2e2c52948fbeb13
+b87a212bc6e590f7a1ac5d02a3199db51db7c052535986c8fdaae4c18d3c25b5
+
+First Exponent (dmp1 = d mod (p-1)): INTEGER (1535 bit), Offset: 1182, Header: 0x0281C0, Value:
+0x61aa80ef0c7a71ce4d45b9d3473fba9ae96c92aa049b0999661e47828457d31d
+3e94a038b82b3bde86df3ebcc341ad69893b3351be97be83549f62e44aeac206
+aa674c411defb6688f81bf83a991e8449108a129a0ae0694af5b9ee8cb931292
+5f463ccb39ff1547c6759512b6dd8e5e56d17efc689891d5f5eb677f26776a65
+10398352c1e6c152b1ab2fc1fbab9c97007143668b41a8e9c4b6c5d100a0e82e
+401c1960c595749f8875200a25b0b52ed20ed88374e1bdbb3bd65eddac4400f3
+
+Second Exponent (dmq1 = d mod (q-1)): INTEGER (1535 bit), Offset: 1377, Header: 0x0281C0, Value:
+0x5a440a0939e9d5360b20a608c6ea443401c470b735f7ffb7518d118aa1006eb3
+c6eb87228387cd58d3a757521a48026813b49e29d4d92a6f7e3af9c8ad44708d
+692b3652ed9a3b9736227463153aefc2d31b438e3f405fd3753f11b5de7e536d
+ee5e8c807f1bd4ede388bc3ab0d16310891f637e803b0a1b3fb09f3c3064b784
+a8391efd89bebb36c9cb1338c1d770d1e46f928b299b41f37860f3737124207e
+0c6f7377c8678bd4a31e47977d80c13e6a5ae020a26d6a12433dcf7637f7a219
+
+CRT Coefficient (q^(-1) mod p): INTEGER (1536 bit), Offset: 1572, Header: 0x0281C1, Value: 
+0xccafde7e8a82c27e90504108240064710f010f270c55b5553b9d302b16b6e52e
+0e89f554d98be999a826bd8f25917e265e25dabd4ecc9af4def2f559c020f5c8
+55b1fac663da2700f2077a4487d20409d65c6909d17552a3b49efa4c112fe285
+fa2308a2a4800a9da8d08dd9bf3528d78c845598e425921f2c60874e5e0b3490
+37a49a592ec70cef2f90d02e5e6fa2050c2f41e900b02560ddfc4fb7746a4e29
+884347ab3cb506b0dc1e52ffcc8267fd2478f37c9104dcf8b7d38925
+
+PUBLIC KEY:
+
+3. As documented in the Appendix of RFC 8017, we expect to see the following information (in the order that it appears) within the public key:
+An RSA public key should be represented with the ASN.1 type RSAPublicKey:
+         RSAPublicKey ::= SEQUENCE {
+             modulus           INTEGER,  -- n
+             publicExponent    INTEGER   -- e
+         }
+The fields of type RSAPublicKey have the following meanings:
+modulus is the RSA modulus n.
+publicExponent is the RSA public exponent e.
+
+4. I read the Digital Cat blog post “Public key cryptography: RSA keys” for some more information regarding the encoding and decoding of RSA keys (public keys, in specific).
+In terminal, by executing the command “openssl rsa -in id_rsa_homework -pubout”, I was able to retrieve the public key in the PEM format (stored at the bottom at this file) since the public key is built using the modulus and the public exponent stored within the private key “id_rsa_homework”.
+
+5. SEQUENCE (2 elem), Header: 0x308201A2, Offset: 0, Value:
+	SEQUENCE (2 elem), Header: 0x300D, Offset: 4, Value:
+OBJECT IDENTIFIER, Offset: 6, Value: 1.2.840.113549.1.1.1 rsaEncryption (PKCS #1)
+NULL, Offset: 17, Header: 0x0500, Value: NULL
+BIT STRING (3184 bit), Offset: 19, Header: 0x0382018F00, Value:
+SEQUENCE (2 elem), Offset: 24, Header: 0x3082018A, Value:
+INTEGER (3072 bit), Offset: 28, Header: 0x02820181, Value:
+INTEGER 65537, Offset: 417, Value
+
+Size (bits): 1024
+ModulusG (n):
+ 0xd18b181f8d8dbfcdd275f0e9f04a2573981282879198cdfbd7da36252c2dc31d
+f1acb676cbd1fc671f18b383af191b8a103df98a250185da16d0faf43ecda61f
+0b7de6299185fa59fe365c5093e0fbe36a63e4661e9c83e3287b215773f5187b
+9b030f675bbd5601dd32ca32fb0475779d66dec11f8001c7bc57a60bb79e2657
+   	Public Exponent (e): 65537 (0x010001)
+
+SANITY CHECK:
+
+I looked all over the internet for calculators that could solve this. The first thing I was trying to do was e mod d. d, in decimal, is the number 227063237403166084033765864623624521441317160825098670773998936218119788478088793846203827239284659042489934953375264367339129581015926718110411550387322308744375558248261046357425578769133528076842267767234524184676189920344017106078230994198888376246957304600420740510761658233875415342742428895375479957996140239933880474028258529258504382824228609897263552488059020930759704205585518429562661007133181294869952529657487631028003337488073125040835633876483959775862720223463812591848918694505130225836443021766604303411807101281758542308480471397221497548758310880873244084333118465376836075117985102260834173469737895244458665689591620314954325242429837175661411719448349527354089920661588673590717760403504208460244217989112046512046031184502491226890268060648800526949470655114866968976742809585480724792925631598224028831870150115266929667539932280585104000268366900280056374811185812427174681256110059727690629530001. I failed to find an online calculator that took such large inputs and once I realized that I needed to write code it was already a bit past the due date.
+
+d = 0xa016a6eea32dd62aebb950364af2583e24c36564d675a8906636254e8195d2eba21dae16ac994d7c2b69ce543f6e81c1e78d441e52cc98d8484976b9d57735b559714a19e9e627298b2daafcab0c277dbe53b8199dcac4e5b5e16e01f60bad0cfdbaf3ba858b82083d723676d1e53e37be6c5a8dbf16d8cf854c3f6b7c91f1ca28799a9358dcbae8dbf7b59f6dee8abfceb16a452bf634c3e892107fba459c545795a8bce610bbda6e0548e57fd0fcee3a6a19b88c8b982c75b7424eed8e65d9dd49252f6cbab536d17d956a5232cd9489aa909f3e7f39653de8d35fe047a338ad200d3ec2f876fc0c7e23dad5183318c6426cf4d85b691acfafac69288942fd3446de43f099bdc9a773ae582aa5fe191c73441bbecde67141297fc40890ee1dc18c15c76c63567d3388b49168bb03e58d234af4c9f00fe068c3660154774769cbe7f06e852b362bad37473b195e26c4a26f902d4930a9ab48373f6c5c7a96b
+d37e1b8db8ce0638772546d32974be1f6d2dfd8c0518a6413e09721ced324191
+
+n = 0xbd395e1c9e09553067bcfa51b34db8795c524e24162c72f040013c336934f5e5
+304aafee8a20614c3eac9f5d09e4009169ee146b91129524a44492ad591d737c
+9545ddf7478995ddd458ec2fb5d557e284501388c1779a2ddb073da14de9b7ff
+ae0ed371205963aba79254beb5128e61a43da7a07d1d9a40052dde206477ab96
+c6472d9c8b3f4e640cced9f3d6ee25edd59c57a5fdc84f0650c011cf065d2946
+71bd9b2af3dc6715af4d5a33ef8ab97f1ff774766e388167eaa470c51bd97fbc
+981f0432c3feee6464436fb20d1b329b05cdfa32be84699d422e169a4b0ce1bb
+1c1c47da21477103969cfabe79cc7b9459a228cf8e9fbcd7e9e96266bda0ac74
+bf4e7f22b8bd2e41ca101eab1b164b6c2da82d84da9934927dbac9c0e19d6f8c
+7fdf83d431279934589e3733b9d6adc35293eaf11bfad9d02c43e7a06bd8c253
+3b680e9d8092aef60b328fa3d055785e57de7a1c32b15bf60b6ebacd1b458e92
+4ae07537cca483fcae0e11864dd8003eb1101da2b1e63aabe8ac6dd0619875fb
+
+e = 65537 (0x010001)
+
+KEYS:
+
+id_rsa_homework:
+-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----
+
+Id_rsa_homework.pub:
+
+-----BEGIN PUBLIC KEY-----
+MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAvTleHJ4JVTBnvPpRs024
+eVxSTiQWLHLwQAE8M2k09eUwSq/uiiBhTD6sn10J5ACRae4Ua5ESlSSkRJKtWR1z
+fJVF3fdHiZXd1FjsL7XVV+KEUBOIwXeaLdsHPaFN6bf/rg7TcSBZY6unklS+tRKO
+YaQ9p6B9HZpABS3eIGR3q5bGRy2ciz9OZAzO2fPW7iXt1ZxXpf3ITwZQwBHPBl0p
+RnG9myrz3GcVr01aM++KuX8f93R2bjiBZ+qkcMUb2X+8mB8EMsP+7mRkQ2+yDRsy
+mwXN+jK+hGmdQi4WmksM4bscHEfaIUdxA5ac+r55zHuUWaIoz46fvNfp6WJmvaCs
+dL9OfyK4vS5ByhAeqxsWS2wtqC2E2pk0kn26ycDhnW+Mf9+D1DEnmTRYnjczudat
+w1KT6vEb+tnQLEPnoGvYwlM7aA6dgJKu9gsyj6PQVXheV956HDKxW/YLbrrNG0WO
+kkrgdTfMpIP8rg4Rhk3YAD6xEB2iseY6q+isbdBhmHX7AgMBAAE=
+-----END PUBLIC KEY-----
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9OV4cnglVMGe8+lGzTbh5XFJOJBYscvBAATwzaTT15TBKr+6KIGFMPqyfXQnkAJFp7hRrkRKVJKREkq1ZHXN8lUXd90eJld3UWOwvtdVX4oRQE4jBd5ot2wc9oU3pt/+uDtNxIFljq6eSVL61Eo5hpD2noH0dmkAFLd4gZHerlsZHLZyLP05kDM7Z89buJe3VnFel/chPBlDAEc8GXSlGcb2bKvPcZxWvTVoz74q5fx/3dHZuOIFn6qRwxRvZf7yYHwQyw/7uZGRDb7INGzKbBc36Mr6EaZ1CLhaaSwzhuxwcR9ohR3EDlpz6vnnMe5RZoijPjp+81+npYma9oKx0v05/Iri9LkHKEB6rGxZLbC2oLYTamTSSfbrJwOGdb4x/34PUMSeZNFieNzO51q3DUpPq8Rv62dAsQ+ega9jCUztoDp2Akq72CzKPo9BVeF5X3nocMrFb9gtuus0bRY6SSuB1N8ykg/yuDhGGTdgAPrEQHaKx5jqr6Kxt0GGYdfs= sethromanenko@Seths-MacBook-Pro.local
