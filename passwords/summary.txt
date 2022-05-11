@@ -1,0 +1,50 @@
+BRUTE-FORCE PASSWORD CRACKING
+Seth Romanenko
+Vicente Riquelme
+
+Part1
+Total Time: 0.28s User Time
+Number of Hashes Computed: 267,733 (all words once)
+Passwords cracked: 2805 (all passwords)
+Time per hash computed: 0.28 / 267733 =0.00000104581 seconds per hash
+Time per password cracked: 0.28/ 2805 = 0.00009982174 seconds per password
+Passwords cracked per number of hashes computed: 2805/ 267,733 = 0.0104768556734 passwords per hash
+
+Part 2
+Total time: [user time from a "time" command]
+7034.77 seconds user time.
+Number of hashes computed: 8,246,083,822
+Passwords cracked: 300
+Time per hash computed: [seconds per hash]
+7034 / 8,246,083,822  = 8.53010975 x 10^-7
+Time per password cracked: [seconds per password]
+7034 / 300 = 23.4466666667 seconds per password.
+Passwords cracked per number of hashes computed: 300 /8,246,083,822 = 3.6380906 x 10 ^-8 passwords per hash
+
+Part 3
+Total time: [user time from a "time" command]
+python3 part3.py  693.99s user 0.89s system 99% cpu 11:35.20 total
+Number of hashes computed: 750,991,065
+Passwords cracked: 2805
+Time per hash computed: 700 / 750991065 = 9.3 x 10 ^-7 seconds per hash
+Time per password cracked: 700 / 2805 = 0.2495543672 seconds per password
+Passwords cracked per number of hashes computed: 2805/ 750991065 = 0.00000373506441119 passwords per hash
+
+Analysis:
+- Did your time per hash computed change between phases? By what factor? Why?
+- Did your time per password crack change between phases? By what factor? Why?
+- Suppose you wanted to precompute all the hashes for each possible password
+so you could just look up the password in a table indexed by the hash. How much
+memory would be required for each phase?
+- Give 3-4 reasons we should store password hashes and not the passwords themselves.
+Think in terms of threats, who the attackers might be, etc.
+
+Time computing hashes is the roughly the same (within 10%) for parts 1 and 3. Part 2 however, takes roughly 10 times more computational power per hash. 
+ 
+Yes, it is much harder to crack salted and two word passwords and thus it requires more computational resources since we have to rehash quite a few different options. Part2 takes 234885 times more than part1 to crack a password. Part3 takes around 2500 times more than part1 to crack the passwords. This is because the double passwords require many combinations 
+
+Each hash is 32 bytes, each password is 16 bytes, and each entry would require another 32 bytes. Thus, each full entry would be 78 bytes. A total of 267733^2 possible passwords. Thus, 267733^2 * 78. Not possible on any modern computer. Around 5000 terabytes just to store. 
+
+If the database where the passwords are stored gets compromised, then the attacker will know everyone’s passwords
+If you break one, you can’t necessarily try it at another website. You don’t know the password
+Database admin can’t view your passwords directly.
